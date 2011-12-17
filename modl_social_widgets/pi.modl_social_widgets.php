@@ -137,73 +137,69 @@ class Modl_social_widgets {
 		$data .='></script>';
 		return $data;
 	}
+	
+	/**
+     * Google +1 Button - JS for asynchronous loading. Currently US English.
+     *
+     */
+	
+	public function google_plusone_script() 
+	{
+		$data = '<script type="text/javascript">
+      window.___gcfg = {
+        lang: \'en-US\'
+      };
+
+      (function() {
+        var po = document.createElement(\'script\'); po.type = \'text/javascript\'; po.async = true;
+        po.src = \'https://apis.google.com/js/plusone.js\';
+        var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(po, s);
+      })();
+    </script>';
+    
+    	return $data;
+	}
+	
+	/**
+     * Google +1 Button
+     *
+     */
+	
+	public function google_plusone_button() 
+	{
+		
+		$size = $this->EE->TMPL->fetch_param('size');
+		$annotation = $this->EE->TMPL->fetch_param('annotation');
+		$align = $this->EE->TMPL->fetch_param('align');
+			
+		$data = '<div class="g-plusone"';
+		
+		if($size) {
+			$data .= ' data-size="'.$size.'"';
+		}
+		
+		if($annotation) {
+			$data .= ' data-annotation="'.$annotation.'"';
+		}
+		
+		if($align) {
+			$data .= ' data-align="'.$align.'"';
+		}
+		
+		$data .= '></div>';
+		
+		return $data;
+	
+	}
+	
+	
 		
 	static function usage()
 	{
 		ob_start(); 
 		?>
 
------------------------------------------------------------------------------------------------		
-Twitter JS - https://dev.twitter.com/docs/tweet-button
------------------------------------------------------------------------------------------------
-
-Will add the Twitter JS to the page. Required for Tweet Button Use. Can be added to bottom of page/footer.
-
-{exp:modl_social_widgets:tweet_js}
-
------------------------------------------------------------------------------------------------		
-Twitter Share - https://dev.twitter.com/docs/tweet-button
------------------------------------------------------------------------------------------------
-
-Will add a complete tweet share button wherever this tag is placed.
-
-{exp:modl_social_widgets:tweet_share url="" text="" count="" via="" lang="" recommend="" hashtag=""}
-
-Optional Parameters:
-
-* URL:Full URL
-* Text: Default text to include in Tweet
-* Count: "none", "horizontal" (default), "vertical"
-* Via: Handle w/o @
-* Lang: en (default), es, … consult Twitter documentation for language options
-* Recommend: Handle w/o @,separate multiple entries with comma
-* Hashtag: w/o #
-
------------------------------------------------------------------------------------------------
-Facebook JS SDK - HTML5 & XFBML Instances - https://developers.facebook.com/docs/reference/plugins/like/
------------------------------------------------------------------------------------------------
-
-Will add the script to call the FB JavaScript SDF. Facebook recommends after the opening body tag.
-
-{exp:modl_social_widgets:fb_js_sdk appid=""}
-
-Optional Parameters:
-
-* appid: FB application id
-
------------------------------------------------------------------------------------------------
-Facebook HTML5 Like Button - https://developers.facebook.com/docs/reference/plugins/like/
------------------------------------------------------------------------------------------------
-
-Will add a simple FB HTML5 Like button wherever this tag is placed.
-
-{exp:modl_social_widgets:fb_like_html5}
-
-Optional Parameters:
-
-Coming Soon
-
------------------------------------------------------------------------------------------------
-LinkedIn Share - https://developer.linkedin.com/plugins/share-button
------------------------------------------------------------------------------------------------
-
-Will add a LinkedIn Share button wherever this tag is placed.
-
-{exp:modl_social_widgets:li_share}
-
-Optional Parameters:
-
-* Counter: "Top", "Right", Leaving out is no counter
+		Please refer to online documentation at https://github.com/Minds-On-Design-Lab/modl_social_widgets.ee-addon
 				
 		<?php
 		$buffer = ob_get_contents();
