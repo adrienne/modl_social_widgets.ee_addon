@@ -1,0 +1,76 @@
+h2. Overview
+
+An ExpressionEngine 2.x plugin consisting of an evolving collection of social widgets to help a website get social.  This plugin is maintained by Minds On Design Lab driven by internal use and needs.
+
+*Developed By:* Minds On Design Lab - http://mod-lab.com
+*Version:* 0.1.0
+*Copyright:* Copyright &copy; 2011 Minds On Design Lab
+*License:* http://creativecommons.org/licenses/by-sa/3.0/ Attribution-Share Alike 3.0 Unported
+
+h2. Installation
+
+Install in system/expressionengine/third_party/modl_social_widgets
+
+h2. Twitter
+
+* Docs - https://dev.twitter.com/docs/tweet-button
+
+h3. Twitter JS
+
+Will add the Twitter JS to the page. Required for Tweet Button Use. Can be added to bottom of page/footer.
+
+@{exp:modl_social_widgets:tweet_js}@
+
+h3. Twitter Share Button
+
+Will add a complete tweet share button wherever this tag is placed.
+
+@{exp:modl_social_widgets:tweet_share url="" text="" count="" via="" lang="" recommend="" hashtag=""}@
+
+Optional Parameters:
+
+* URL: Full URL
+* Text: Default text to include in Tweet
+* Count: "none", "vertical", "horizontal" (default)
+* Via: Twitter handle w/o @
+* Lang: en (default), es, … consult Twitter documentation for language options
+* Recommend: Handle w/o @,separate multiple entries with commas
+* Hashtag:  Hashtag w/o #
+
+h2. Facebook
+
+* Docs - https://developers.facebook.com/docs/reference/plugins/like/
+
+h3. Facebook JS SDK - HTML5 & XFBML Instances
+
+Will add the script to call the FB JavaScript SDF. Facebook recommends after the opening body tag; however, we tend to add before closing body.
+
+@{exp:modl_social_widgets:fb_js_sdk appid=""}@
+
+Optional Parameters:
+
+* appid: FB application id
+
+h3. Facebook HTML5 Like Button
+
+Will add a simple FB HTML5 Like button wherever this tag is placed.
+
+@{exp:modl_social_widgets:fb_like_html5}@
+
+Optional Parameters:
+
+* Coming Soon :-)
+
+h2. LinkedIn
+
+* Docs - https://developer.linkedin.com/plugins/share-button
+
+h3. LinkedIn Share
+
+Will add a LinkedIn Share button wherever this tag is placed.
+
+@{exp:modl_social_widgets:li_share}@
+
+Optional Parameters:
+
+* Counter: "Top", "Right", Leaving out is no counter
