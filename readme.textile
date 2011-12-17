@@ -13,7 +13,7 @@ Install in system/expressionengine/third_party/modl_social_widgets
 
 h2. Twitter
 
-* Docs - https://dev.twitter.com/docs/tweet-button
+* Docs - "https://dev.twitter.com/docs/tweet-button":https://dev.twitter.com/docs/tweet-button
 
 h3. Twitter JS
 
@@ -39,7 +39,7 @@ Optional Parameters:
 
 h2. Facebook
 
-* Docs - https://developers.facebook.com/docs/reference/plugins/like/
+* Docs - "https://developers.facebook.com/docs/reference/plugins/like/":https://developers.facebook.com/docs/reference/plugins/like/
 
 h3. Facebook JS SDK - HTML5 & XFBML Instances
 
@@ -63,7 +63,7 @@ Optional Parameters:
 
 h2. LinkedIn
 
-* Docs - https://developer.linkedin.com/plugins/share-button
+* Docs - "https://developer.linkedin.com/plugins/share-button":https://developer.linkedin.com/plugins/share-button
 
 h3. LinkedIn Share
 
