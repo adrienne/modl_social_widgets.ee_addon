@@ -18,15 +18,17 @@ h3. Twitter JS
 
 Will add the Twitter JS to the page. Required for Tweet Button Use. Can be added to bottom of page/footer.
 
-@{exp:modl_social_widgets:tweet_js}@
+	@{exp:modl_social_widgets:tweet_js}@
 
 h3. Twitter Share Button
 
 Will add a complete tweet share button wherever this tag is placed.
 
-@{exp:modl_social_widgets:tweet_share url="" text="" count="" via="" lang="" recommend="" hashtag=""}@
+	@{exp:modl_social_widgets:tweet_share}@
 
 Optional Parameters:
+
+	@{exp:modl_social_widgets:tweet_share url="" text="" count="" via="" lang="" recommend="" hashtag=""}@
 
 * URL: Full URL
 * Text: Default text to include in Tweet
@@ -44,9 +46,11 @@ h3. Facebook JS SDK - HTML5 & XFBML Instances
 
 Will add the script to call the FB JavaScript SDF. Facebook recommends after the opening body tag; however, we tend to add before closing body.
 
-@{exp:modl_social_widgets:fb_js_sdk appid=""}@
+	@{exp:modl_social_widgets:fb_js_sdk}@
 
 Optional Parameters:
+
+	@{exp:modl_social_widgets:fb_js_sdk appid=""}@
 
 * appid: FB application id
 
@@ -54,7 +58,7 @@ h3. Facebook HTML5 Like Button
 
 Will add a simple FB HTML5 Like button wherever this tag is placed.
 
-@{exp:modl_social_widgets:fb_like_html5}@
+	@{exp:modl_social_widgets:fb_like_html5}@
 
 Optional Parameters:
 
@@ -68,8 +72,36 @@ h3. LinkedIn Share
 
 Will add a LinkedIn Share button wherever this tag is placed.
 
-@{exp:modl_social_widgets:li_share}@
+@{exp:modl_social_widgets:li_share counter=""}@
 
 Optional Parameters:
 
 * Counter: "Top", "Right", Leaving out is no counter
+
+h2. Google +1 Button
+
+* Docs - "https://developers.google.com/+/plugins/+1button/":https://developers.google.com/+/plugins/+1button/
+
+h3. Google +1 JS
+
+Will add the JS for asynchronous loading of +1 buttons on page.  Should be placed after last +1 instance. Likely before closing body tag.
+
+	@{exp:modl_social_widgets:google_plusone_script}@
+	
+Optional Parameters:
+
+_No optional parameters supported at this time.  Languages and various load/call types may be needed in future. Consult docs above to explore options.
+
+h3. Google +1 Button
+
+Will add a Google +1 button wherever this tag is placed.
+
+	@{exp:modl_social_widgets:google_plusone_button}@
+
+Optional Parameters:
+
+	@{exp:modl_social_widgets:google_plusone_button size="" annotation="" align=""}@
+
+* Size: small, medium, standard (default), tall - The button size to render.
+* Annotation: none, bubble (default), inline - The annotation to display next to the button.
+* Align: left (default), right - Sets the alignment of the button assets within its frame.
