@@ -8,7 +8,6 @@
  * @version     0.1.0
  * @author      Minds On Design Lab Inc http://mod-lab.com
  * @copyright   Copyright (c) 2011 Minds On Design Lab
- * @license     http://creativecommons.org/licenses/by-sa/3.0/ Attribution-Share Alike 3.0 Unported
  * 
  */
 
