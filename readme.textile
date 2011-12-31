@@ -5,7 +5,7 @@ An ExpressionEngine 2.x plugin consisting of an evolving collection of social wi
 *Developed By:* Minds On Design Lab - http://mod-lab.com
 *Version:* 0.1.0
 *Copyright:* Copyright &copy; 2011 Minds On Design Lab
-*License: "http://opensource.org/licenses/MIT":http://opensource.org/licenses/MIT
+*License:* "http://opensource.org/licenses/MIT":http://opensource.org/licenses/MIT
 
 h2. Installation
 
