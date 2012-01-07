@@ -7,7 +7,7 @@
  * @package     Modl_social_widgets
  * @version     1.0.1
  * @author      Minds On Design Lab Inc http://mod-lab.com
- * @copyright   Copyright (c) 2011 Minds On Design Lab
+ * @copyright   Copyright (c) 2011 Minds On Design Lab Inc.
  * @License: 	Licensed under the MIT license - Please refer to LICENSE
  * 
  */
@@ -15,7 +15,7 @@
 $plugin_info = array(
   'pi_name' => 'MODL Social Widgets',
   'pi_version' => '1.0.1',
-  'pi_author' => 'Minds On Design Lab',
+  'pi_author' => 'Minds On Design Lab Inc.',
   'pi_author_url' => 'http://mod-lab.com',
   'pi_description' => 'A collection of functions to display social widgets',
   'pi_usage' => Modl_social_widgets::usage()
