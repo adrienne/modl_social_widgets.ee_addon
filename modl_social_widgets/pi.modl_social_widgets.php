@@ -299,7 +299,7 @@ class Modl_social_widgets {
 		
 		// Build Code
 		
-		$data .='<script type="IN/Share"';
+		$data ='<script type="IN/Share"';
 		
 		if ($url) {
 			$data .= ' data-url="'.$url.'"';
