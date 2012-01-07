@@ -71,7 +71,6 @@ class Modl_social_widgets {
 			$data .= ' data-text="'.$text.'"';
 		}
 		if($count) {
-			$data .= ' data-count="'.$count.'"';
 			switch ($count) {
 			    case "none":
 			        $data .= ' data-count="none"';
