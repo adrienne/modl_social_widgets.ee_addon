@@ -29,7 +29,7 @@ Will add a complete tweet share button wherever this tag is placed using default
 
 Optional Parameters:
 
-	@{exp:modl_social_widgets:tweet_share url="" text="" count="" via="" lang="" recommend="" hashtag=""}@
+	@{exp:modl_social_widgets:tweet_share url="" text="" count="" via="" lang="" recommend="" hashtag="" size=""}@
 
 * URL: Full qualified URL, eg. http://twitter.com. Default will use current URL at time of initiating a tweet.
 * Text: Text to include in default Tweet.
@@ -37,7 +37,8 @@ Optional Parameters:
 * Via: Twitter handle w/o @
 * Lang: "en" (default), "es", … consult Twitter documentation for language options
 * Recommend: Handle w/o @,separate multiple entries with commas
-* Hashtag:  Hashtag w/o #
+* Hashtag: Hashtag w/o #
+* size: "medium" (default), "large".
 
 h2. Facebook
 
@@ -125,6 +126,7 @@ h2. 1.0.1
 * Revised method naming convention to all end with _js
 ** fb_js_sdk -> fb_js (this will break current implementations, please update w/ care)
 ** google_plusone_script -> google_plusone_js (this will break current implementations, please update w/ care)
+* Added size parameter to tweet_share
 * Added parameters for HTML5 FB Like
 * Revised LinkedIn Share treatment
 ** Separated out script method (this will break current implementations, please update w/ care)

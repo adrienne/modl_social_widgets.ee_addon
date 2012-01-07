@@ -59,6 +59,7 @@ class Modl_social_widgets {
 		$lang = $this->EE->TMPL->fetch_param('lang');
 		$recommend = $this->EE->TMPL->fetch_param('recommend');
 		$hashtag = $this->EE->TMPL->fetch_param('hashtag');
+		$size = $this->EE->TMPL->fetch_param('size');
 		
 		// Build Code
 		
@@ -87,7 +88,19 @@ class Modl_social_widgets {
 		}
 		if($hashtag) {
 			$data .= ' data-hashtags="'.$hashtag.'"';
+		}
+		if($size) {
+			$data .= ' data-size="'.$size.'"';
+			switch ($size) {
+			    case "medium":
+			        $data .= ' data-size="medium"';
+			        break;
+			    case "large":
+			        $data .= ' data-size="large"';
+			        break;
+			}
 		} 
+		
 		$data .='>Tweet</a>';
 		
 		return $data;
