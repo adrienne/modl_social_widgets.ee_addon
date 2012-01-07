@@ -1,9 +1,9 @@
 h2. Overview
 
-An ExpressionEngine 2.x plugin consisting of an evolving collection of social widgets to help a website get social.  This plugin is maintained by Minds On Design Lab driven by internal use and needs.
+An ExpressionEngine 2.x plugin consisting of an evolving collection of social widgets to help a website get social. This plugin is maintained by Minds On Design Lab driven by internal use and needs.
 
 *Developed By:* Minds On Design Lab - http://mod-lab.com
-*Version:* 0.1.0
+*Version:* 1.0.1
 *Copyright:* Copyright &copy; 2011 Minds On Design Lab
 *License:* "http://opensource.org/licenses/MIT":http://opensource.org/licenses/MIT
 
@@ -17,13 +17,13 @@ h2. Twitter
 
 h3. Twitter JS
 
-Will add the Twitter JS to the page. Required for Tweet Button Use. Can be added to bottom of page/footer.
+Will add the Twitter JS to the page. Required for Tweet Button Use. Can be added to bottom of page/footer before @</body>@.
 
 	@{exp:modl_social_widgets:tweet_js}@
 
 h3. Twitter Share Button
 
-Will add a complete tweet share button wherever this tag is placed.
+Will add a complete tweet share button wherever this tag is placed using defaults as detailed below.
 
 	@{exp:modl_social_widgets:tweet_share}@
 
@@ -31,11 +31,11 @@ Optional Parameters:
 
 	@{exp:modl_social_widgets:tweet_share url="" text="" count="" via="" lang="" recommend="" hashtag=""}@
 
-* URL: Full URL
-* Text: Default text to include in Tweet
+* URL: Full qualified URL, eg. http://twitter.com. Default will use current URL at time of initiating a tweet.
+* Text: Text to include in default Tweet.
 * Count: "none", "vertical", "horizontal" (default)
 * Via: Twitter handle w/o @
-* Lang: en (default), es, … consult Twitter documentation for language options
+* Lang: "en" (default), "es", … consult Twitter documentation for language options
 * Recommend: Handle w/o @,separate multiple entries with commas
 * Hashtag:  Hashtag w/o #
 
@@ -45,25 +45,34 @@ h2. Facebook
 
 h3. Facebook JS SDK - HTML5 & XFBML Instances
 
-Will add the script to call the FB JavaScript SDF. Facebook recommends after the opening body tag; however, we tend to add before closing body.
+Will add the script to call the FB JavaScript SDF using XBFML. Facebook recommends after the opening body tag; however, we tend to add before closing body.
 
-	@{exp:modl_social_widgets:fb_js_sdk}@
+	@{exp:modl_social_widgets:fb_js}@
 
 Optional Parameters:
 
-	@{exp:modl_social_widgets:fb_js_sdk appid=""}@
+	@{exp:modl_social_widgets:fb_js appid=""}@
 
 * appid: FB application id
 
 h3. Facebook HTML5 Like Button
 
-Will add a simple FB HTML5 Like button wherever this tag is placed.
+Will add a simple FB HTML5 Like button wherever this tag is placed using default parameter options as noted below. The defaults are not the out of the box Facebook defaults when you use their like form to generate code but are rather what we have found to be the most standard basic implementation for the sites we build.
 
 	@{exp:modl_social_widgets:fb_like_html5}@
 
 Optional Parameters:
 
-* Coming Soon :-)
+	@{exp:modl_social_widgets:fb_like_html5 url="" send="" layout="" width="" faces="" verb="" color=""}@
+
+* url: Entering a fully qualified URL, eg. http://facebook.com. Default will use current URL at time of initiating a like.
+* send: "true", "false" (default)
+* layout: "standard", "button_count" (default), "box_count"
+* width: Enter a number for width in pixels (90 default). Please note that each layout combined with other parameters such as whether you enable the send feature has minimum and max widths that may override anything added here. Please refer to Facebook docs for details.
+* faces: "true", "false" (default). Only used for standard layout, ignored if others are used.
+* verb: "recommend". No parameter or any other value defaults to use of "Like".
+* color: "dark". No parameter or any other value defaults to light version.
+* font: "arial" (default), "lucida grande", "segoe ui", "tahoma", "trebuchet ms", "verdana"
 
 h2. LinkedIn
 
@@ -73,9 +82,11 @@ h3. LinkedIn Share
 
 Will add a LinkedIn Share button wherever this tag is placed.
 
-@{exp:modl_social_widgets:li_share counter=""}@
+@{exp:modl_social_widgets:li_share}@
 
 Optional Parameters:
+
+@{exp:modl_social_widgets:li_share counter=""}@
 
 * Counter: "Top", "Right", Leaving out is no counter
 
@@ -87,11 +98,11 @@ h3. Google +1 JS
 
 Will add the JS for asynchronous loading of +1 buttons on page.  Should be placed after last +1 instance. Likely before closing body tag.
 
-	@{exp:modl_social_widgets:google_plusone_script}@
+	@{exp:modl_social_widgets:google_plusone_js}@
 	
 Optional Parameters:
 
-_No optional parameters supported at this time.  Languages and various load/call types may be needed in future. Consult docs above to explore options.
+_No optional parameters supported at this time. Languages and various load/call types may be needed in future. Consult docs above to explore options.
 
 h3. Google +1 Button
 
@@ -103,6 +114,22 @@ Optional Parameters:
 
 	@{exp:modl_social_widgets:google_plusone_button size="" annotation="" align=""}@
 
-* Size: small, medium, standard (default), tall - The button size to render.
-* Annotation: none, bubble (default), inline - The annotation to display next to the button.
-* Align: left (default), right - Sets the alignment of the button assets within its frame.
+* Size: "small", "medium", "standard" (default), "tall" - The button size to render.
+* Annotation: "none", "bubble" (default), "inline" - The annotation to display next to the button.
+* Align: "left" (default), "right" - Sets the alignment of the button assets within its frame.
+
+h1. Change Log
+
+h2. 1.0.1
+
+* Revised method naming convention to all end with _js
+** fb_js_sdk -> fb_js (this will break current implementations, please update w/ care)
+** google_plusone_script -> google_plusone_js (this will break current implementations, please update w/ care)
+* Added parameters for HTML5 FB Like
+* Revised LinkedIn Share treatment
+** Separated out script method (this will break current implementations, please update w/ care)
+** Added URL parameter
+
+h2. 1.0.0
+
+* Initial release
