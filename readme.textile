@@ -115,23 +115,29 @@ Optional Parameters:
 
 	@{exp:modl_social_widgets:google_plusone_button size="" annotation="" align=""}@
 
-* Size: "small", "medium", "standard" (default), "tall" - The button size to render.
+* Size: "small", "medium" (default), "standard", "tall" - The button size to render.
 * Annotation: "none", "bubble" (default), "inline" - The annotation to display next to the button.
 * Align: "left" (default), "right" - Sets the alignment of the button assets within its frame.
+* Width: Width in pixels of the annotation area if you specify to annotation "inline". There is a minimum of 120 and default is 450 if not specified. For details please refer to the official +1 documentation.
 
 h1. Change Log
 
 h2. 1.0.1
 
-* Revised method naming convention to all end with _js
+* Revised parameters where there are specific values that are accepted to use switches
+* Revised method naming conventions
 ** fb_js_sdk -> fb_js (this will break current implementations, please update w/ care)
 ** google_plusone_script -> google_plusone_js (this will break current implementations, please update w/ care)
+** google_plusone_button -> google_plusone_share (this will break current implementations, please update w/ care)
 * Added size parameter to tweet_share
 * Added parameters for HTML5 FB Like
 * Revised LinkedIn Share treatment
 ** Separated out script method (this will break current implementations, please update w/ care)
 ** Added URL parameter
+* Added url parameter to +1 share
+* Changed size default to medium for +1 share
+* Added width parameter for inline annotations for +1 share
 
 h2. 1.0.0
 
-* Initial release
+* First pass

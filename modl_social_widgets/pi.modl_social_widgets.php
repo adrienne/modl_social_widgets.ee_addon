@@ -255,7 +255,6 @@ class Modl_social_widgets {
 		}
 		
 		if($counter) {
-			
 			switch ($counter) {
 			    case "top":
 			        $data .= ' data-counter="top"';
@@ -296,25 +295,75 @@ class Modl_social_widgets {
      *
      */
 	
-	public function google_plusone_button() 
+	public function google_plusone_share() 
 	{
 		
+		// Parameters
+		
+		$url = $this->EE->TMPL->fetch_param('url');
 		$size = $this->EE->TMPL->fetch_param('size');
 		$annotation = $this->EE->TMPL->fetch_param('annotation');
 		$align = $this->EE->TMPL->fetch_param('align');
-			
+		$width = $this->EE->TMPL->fetch_param('width');
+		
+		// Build Code
+		
 		$data = '<div class="g-plusone"';
 		
+		if($url) {
+			$data .= ' data-href="'.$url.'"';
+		}
+		
 		if($size) {
-			$data .= ' data-size="'.$size.'"';
+			switch ($size) {
+			    case "small":
+			        $data .= ' data-size="small"';
+			        break;
+			    case "medium":
+			        $data .= ' data-size="medium"';
+			        break;
+			    case "standard":
+			        $data .= ' data-size="standard"';
+			        break;
+			    case "tall":
+			        $data .= ' data-size="tall"';
+			        break;
+			    default:
+			    	$data .= ' data-size="medium"';	    	
+			}
 		}
 		
 		if($annotation) {
-			$data .= ' data-annotation="'.$annotation.'"';
+			switch ($annotation) {
+			    case "none":
+			        $data .= ' data-annotation="none"';
+			        break;
+			    case "bubble":
+			        $data .= ' data-annotation="bubble"';
+			        break;
+			    case "inline":
+			        $data .= ' data-annotation="inline"';
+			        break;
+			    default:
+			    	$data .= ' data-annotation="bubble"';			    	
+			}
 		}
 		
 		if($align) {
-			$data .= ' data-align="'.$align.'"';
+			switch ($align) {
+			    case "left":
+			        $data .= ' data-align="left"';
+			        break;
+			    case "right":
+			        $data .= ' data-align="right"';
+			        break;
+			    default:
+			    	$data .= ' data-align="left"';			    	
+			}
+		}
+		
+		if($width) {
+			$data .= ' data-width="'.$width.'"';
 		}
 		
 		$data .= '></div>';
