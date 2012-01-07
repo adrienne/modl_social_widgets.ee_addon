@@ -1,3 +1,5 @@
+h1. MODL Social Widgets
+
 h2. Overview
 
 An ExpressionEngine 2.x plugin consisting of an evolving collection of social widgets to help a website get social. The defaults noted below are not necessarily those promoted by their respective platforms but rather are what we have found to be the most standard basic implementation for the sites we build. This plugin is maintained by Minds On Design Lab driven by internal use and needs.
