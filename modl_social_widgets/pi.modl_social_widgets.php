@@ -107,7 +107,6 @@ class Modl_social_widgets {
 		}
 		
 		if($size) {
-			$data .= ' data-size="'.$size.'"';
 			switch ($size) {
 			    case "medium":
 			        $data .= ' data-size="medium"';
@@ -246,7 +245,6 @@ class Modl_social_widgets {
 		}
 		
 		if ($font) {
-		
 			switch ($font) {
 			    case "arial":
 			        $data .= ' data-font="arial"';
