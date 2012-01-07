@@ -1,11 +1,11 @@
 h2. Overview
 
-An ExpressionEngine 2.x plugin consisting of an evolving collection of social widgets to help a website get social. This plugin is maintained by Minds On Design Lab driven by internal use and needs.
+An ExpressionEngine 2.x plugin consisting of an evolving collection of social widgets to help a website get social. The defaults noted below are not necessarily those promoted by their respective platforms but rather are what we have found to be the most standard basic implementation for the sites we build. This plugin is maintained by Minds On Design Lab driven by internal use and needs.
 
 *Developed By:* Minds On Design Lab - http://mod-lab.com
 *Version:* 1.0.1
 *Copyright:* Copyright &copy; 2011 Minds On Design Lab
-*License:* "http://opensource.org/licenses/MIT":http://opensource.org/licenses/MIT
+*License:* Licensed under the MIT license - Please refer to LICENSE
 
 h2. Installation
 
@@ -60,7 +60,7 @@ Optional Parameters:
 
 h3. Facebook HTML5 Like Button
 
-Will add a simple FB HTML5 Like button wherever this tag is placed using default parameter options as noted below. The defaults are not the out of the box Facebook defaults when you use their like form to generate code but are rather what we have found to be the most standard basic implementation for the sites we build.
+Will add a simple FB HTML5 Like button wherever this tag is placed using default parameter options as noted below.
 
 	@{exp:modl_social_widgets:fb_like_html5}@
 
@@ -118,7 +118,7 @@ _No optional parameters supported at this time. Languages and various load/call 
 
 h3. Google +1 Button
 
-Will add a Google +1 button wherever this tag is placed.
+Will add a Google +1 button wherever this tag is placed using defaults as detailed below.
 
 	@{exp:modl_social_widgets:google_plusone_share}@
 
