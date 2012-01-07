@@ -29,25 +29,16 @@ Will add a complete tweet share button wherever this tag is placed using default
 
 Optional Parameters:
 
-	@{exp:modl_social_widgets:tweet_share 
-		url="" 
-		text="" 
-		count="" 
-		via="" 
-		lang="" 
-		recommend="" 
-		hashtag="" 
-		size=""
-	}@
+	@{exp:modl_social_widgets:tweet_share url="" text="" count="" via="" lang="" recommend="" hashtag="" size=""}@
 
 |_. Parameter|_. Options|_. Default|_. Additional Notes|
 |url|||Full qualified URL, eg. http://twitter.com. Default will use current URL at time of initiating a tweet.|
 |text|||Text to include in default Tweet.|
-|Count|"none", "vertical", "horizontal"|horizontal||
-|Via|||Twitter handle w/o @|
-|Lang|"en", "es", … consult Twitter documentation for language options|en||
-|Recommend|||Handle w/o @,separate multiple entries with commas|
-|Hashtag|||Hashtag w/o #|
+|count|"none", "vertical", "horizontal"|horizontal||
+|via|||Twitter handle w/o @|
+|lang|"en", "es", … consult Twitter documentation for language options|en||
+|recommend|||Handle w/o @,separate multiple entries with commas|
+|hashtag|||Hashtag w/o #|
 |size|"medium", "large"|medium||
 
 h2. Facebook
@@ -64,7 +55,8 @@ Optional Parameters:
 
 	@{exp:modl_social_widgets:fb_js appid=""}@
 
-* appid: FB application id
+|_. Parameter|_. Options|_. Default|_. Additional Notes|
+|appid|||FB application id|
 
 h3. Facebook HTML5 Like Button
 
@@ -76,30 +68,39 @@ Optional Parameters:
 
 	@{exp:modl_social_widgets:fb_like_html5 url="" send="" layout="" width="" faces="" verb="" color=""}@
 
-* url: Entering a fully qualified URL, eg. http://facebook.com. Default will use current URL at time of initiating a like.
-* send: "true", "false" (default)
-* layout: "standard", "button_count" (default), "box_count"
-* width: Enter an int for width in pixels (90 default). Please note that each layout combined with other parameters such as whether you enable the send feature has minimum and max widths that may override anything added here. Please refer to Facebook docs for details.
-* faces: "true", "false" (default). Only used for standard layout, ignored if others are used.
-* verb: "recommend". No parameter or any other value defaults to use of "Like".
-* color: "dark". No parameter or any other value defaults to light version.
-* font: "arial" (default), "lucida grande", "segoe ui", "tahoma", "trebuchet ms", "verdana"
+|_. Parameter|_. Options|_. Default|_. Additional Notes|
+|url|||Entering a fully qualified URL, eg. http://facebook.com. Default will use current URL at time of initiating a like.|
+|send|"true", "false"|false||
+|layout|"standard", "button_count", "box_count"|button_count||
+|width|||Enter an int for width in pixels (90 default). Please note that each layout combined with other parameters such as whether you enable the send feature has minimum and max widths that may override anything added here. Please refer to Facebook docs for details.|
+|faces|"true", "false"|false|Only used for standard layout, ignored if others are used.|
+|verb|"recommend"||No parameter or any other value defaults to use of "Like".|
+|color|"dark"||No parameter or any other value defaults to light version.|
+|font|"arial", "lucida grande", "segoe ui", "tahoma", "trebuchet ms", "verdana"|arial||
 
-h2. LinkedIn
+h2. Linkedin
 
 * Docs - "https://developer.linkedin.com/plugins/share-button":https://developer.linkedin.com/plugins/share-button
 
-h3. LinkedIn Share
+h3. Linkedin JS
 
-Will add a LinkedIn Share button wherever this tag is placed.
+Will add the Linkedin JS to the page. Required for Tweet Button Use. Likely added to bottom of page/footer before @</body>@.
 
-@{exp:modl_social_widgets:li_share}@
+	@{exp:modl_social_widgets:li_js}@
+
+h3. Linkedin Share
+
+Will add a Linkedin Share button wherever this tag is placed.
+
+	@{exp:modl_social_widgets:li_share}@
 
 Optional Parameters:
 
-@{exp:modl_social_widgets:li_share counter=""}@
+	@{exp:modl_social_widgets:li_share counter=""}@
 
-* Counter: "Top", "Right", Leaving out is no counter
+|_. Parameter|_. Options|_. Default|_. Additional Notes|
+|url|||Entering a fully qualified URL, eg. http://linkedin.com. Default will use current URL at time of initiating a share.|
+|Counter|"Top", "Right"||Leaving out will result in no counter|
 
 h2. Google +1 Button
 
@@ -119,16 +120,17 @@ h3. Google +1 Button
 
 Will add a Google +1 button wherever this tag is placed.
 
-	@{exp:modl_social_widgets:google_plusone_button}@
+	@{exp:modl_social_widgets:google_plusone_share}@
 
 Optional Parameters:
 
-	@{exp:modl_social_widgets:google_plusone_button size="" annotation="" align=""}@
+	@{exp:modl_social_widgets:google_plusone_share size="" annotation="" align=""}@
 
-* Size: "small", "medium" (default), "standard", "tall" - The button size to render.
-* Annotation: "none", "bubble" (default), "inline" - The annotation to display next to the button.
-* Align: "left" (default), "right" - Sets the alignment of the button assets within its frame.
-* Width: Width in pixels of the annotation area if you specify to annotation "inline". There is a minimum of 120 and default is 450 if not specified. For details please refer to the official +1 documentation.
+|_. Parameter|_. Options|_. Default|_. Additional Notes|
+|size|"small", "medium", "standard", "tall"|medium|The button size to render.|
+|annotation|"none", "bubble", "inline"|bubble|The annotation to display next to the button.|
+|align|"left", "right"|left|Sets the alignment of the button assets within its frame.|
+|width|||Width in pixels of the annotation area if you specify to annotation "inline". There is a minimum of 120 and default is 450 if not specified both controlled by Google. For details please refer to the official +1 documentation.|
 
 h1. Change Log
 
@@ -139,14 +141,17 @@ h2. 1.0.1
 ** fb_js_sdk -> fb_js (this will break current implementations, please update w/ care)
 ** google_plusone_script -> google_plusone_js (this will break current implementations, please update w/ care)
 ** google_plusone_button -> google_plusone_share (this will break current implementations, please update w/ care)
-* Added size parameter to tweet_share
-* Added parameters for HTML5 FB Like
-* Revised LinkedIn Share treatment
-** Separated out script method (this will break current implementations, please update w/ care)
+* Tweet_share
+** Added size parameter to tweet_share
+* Fb_like_html5
+** Added optional parameters
+* Li_share
+** Separated out script method (li_js) (this will break current implementations, please update w/ care)
 ** Added URL parameter
-* Added url parameter to +1 share
-* Changed size default to medium for +1 share
-* Added width parameter for inline annotations for +1 share
+* Google_plusone_share
+** Added url parameter to +1 share
+** Changed size default to medium for +1 share
+** Added width parameter for inline annotations for +1 share
 
 h2. 1.0.0
 
