@@ -69,7 +69,7 @@ Optional Parameters:
 * url: Entering a fully qualified URL, eg. http://facebook.com. Default will use current URL at time of initiating a like.
 * send: "true", "false" (default)
 * layout: "standard", "button_count" (default), "box_count"
-* width: Enter a number for width in pixels (90 default). Please note that each layout combined with other parameters such as whether you enable the send feature has minimum and max widths that may override anything added here. Please refer to Facebook docs for details.
+* width: Enter an int for width in pixels (90 default). Please note that each layout combined with other parameters such as whether you enable the send feature has minimum and max widths that may override anything added here. Please refer to Facebook docs for details.
 * faces: "true", "false" (default). Only used for standard layout, ignored if others are used.
 * verb: "recommend". No parameter or any other value defaults to use of "Like".
 * color: "dark". No parameter or any other value defaults to light version.

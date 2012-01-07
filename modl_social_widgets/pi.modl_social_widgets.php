@@ -72,23 +72,39 @@ class Modl_social_widgets {
 		}
 		if($count) {
 			$data .= ' data-count="'.$count.'"';
-		} else {
-			$data .= ' data-count="horizontal"';
-		}  
+			switch ($count) {
+			    case "none":
+			        $data .= ' data-count="none"';
+			        break;
+			    case "vertical":
+			        $data .= ' data-count="vertical"';
+			        break;
+			    case "horizontal":
+			        $data .= ' data-count="horizontal"';
+			        break;
+			    default:
+			    	$data .= ' data-count="horizontal"';
+			}
+		}
+		  
 		if($via) {
 			$data .= ' data-via="'.$via.'"';
 		}
+		
 		if($lang) {
 			$data .= ' data-lang="'.$lang.'"';
 		} else {
 			$data .= ' data-lang="en"';
 		}
+		
 		if($recommend) {
 			$data .= ' data-related="'.$recommend.'"';
 		}
+		
 		if($hashtag) {
 			$data .= ' data-hashtags="'.$hashtag.'"';
 		}
+		
 		if($size) {
 			$data .= ' data-size="'.$size.'"';
 			switch ($size) {
@@ -98,6 +114,8 @@ class Modl_social_widgets {
 			    case "large":
 			        $data .= ' data-size="large"';
 			        break;
+			   	default: 
+			   		$data .= ' data-size="medium"';
 			}
 		} 
 		
@@ -163,13 +181,32 @@ class Modl_social_widgets {
 		}
 		
 		if ($send) {
-			$data.= ' data-send="'.$send.'"';
+			switch ($send) {
+			    case "true":
+			        $data .= ' data-send="true"';
+			        break;
+			    case "false":
+			        $data .= ' data-send="false"';
+			        break;
+			   	default: 
+			   		$data .= ' data-send="false"';
+			}
 		}
 		
 		if ($layout) {
-			$data .= ' data-layout="'.$layout.'"';
-		} else {
-			$data .= ' data-layout="button_count"';
+			switch ($layout) {
+			    case "standard":
+			        $data .= ' data-layout="standard"';
+			        break;
+			    case "button_count":
+			        $data .= ' data-layout="button_count"';
+			        break;
+			    case "box_count":
+			        $data .= ' data-layout="box_count"';
+			        break;
+			   	default: 
+			   		$data .= ' data-layout="button_count"';
+			}
 		}
 		
 		if ($width) {
@@ -179,9 +216,16 @@ class Modl_social_widgets {
 		}
 		
 		if ($faces) {
-			$data .= ' data-show-faces="'.$faces.'"';
-		} else {
-			$data .= ' data-show-faces="false"';
+			switch ($faces) {
+			    case "true":
+			        $data .= ' data-show-faces="true"';
+			        break;
+			    case "false":
+			        $data .= ' data-show-faces="false"';
+			        break;
+			   	default: 
+			   		$data .= ' data-show-faces="false"';
+			}
 		}
 		
 		if ($verb == 'recommend') {
