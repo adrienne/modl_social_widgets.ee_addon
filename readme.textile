@@ -100,7 +100,7 @@ Optional Parameters:
 
 |_. Parameter|_. Options|_. Default|_. Additional Notes|
 |url|||Entering a fully qualified URL, eg. http://linkedin.com. Default will use current URL at time of initiating a share.|
-|Counter|"Top", "Right"||Leaving out will result in no counter|
+|Counter|"top", "right"||Leaving out will result in no counter|
 
 h2. Google +1 Button
 
