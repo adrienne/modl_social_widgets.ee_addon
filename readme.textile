@@ -31,14 +31,17 @@ Optional Parameters:
 
 	@{exp:modl_social_widgets:tweet_share url="" text="" count="" via="" lang="" recommend="" hashtag="" size=""}@
 
-* URL: Full qualified URL, eg. http://twitter.com. Default will use current URL at time of initiating a tweet.
-* Text: Text to include in default Tweet.
-* Count: "none", "vertical", "horizontal" (default)
-* Via: Twitter handle w/o @
-* Lang: "en" (default), "es", … consult Twitter documentation for language options
-* Recommend: Handle w/o @,separate multiple entries with commas
-* Hashtag: Hashtag w/o #
-* size: "medium" (default), "large".
+|^.
+|_. Parameter|_. Options|_. Default|_. Additional Notes|
+|-.
+|url|||Full qualified URL, eg. http://twitter.com. Default will use current URL at time of initiating a tweet.|
+|text|||Text to include in default Tweet.|
+|Count|"none", "vertical", "horizontal"|horizontal||
+|Via|||Twitter handle w/o @|
+|Lang|"en", "es", … consult Twitter documentation for language options|en||
+|Recommend|||Handle w/o @,separate multiple entries with commas|
+|Hashtag|||Hashtag w/o #|
+|size|"medium", "large"|medium||
 
 h2. Facebook
 
