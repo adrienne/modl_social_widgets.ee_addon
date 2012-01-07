@@ -8,7 +8,7 @@
  * @version     1.0.1
  * @author      Minds On Design Lab Inc http://mod-lab.com
  * @copyright   Copyright (c) 2011 Minds On Design Lab
- * @License: 	http://opensource.org/licenses/MIT
+ * @License: 	Licensed under the MIT license - Please refer to LICENSE
  * 
  */
 
@@ -85,6 +85,8 @@ class Modl_social_widgets {
 			    default:
 			    	$data .= ' data-count="horizontal"';
 			}
+		} else {
+			$data .= ' data-count="horizontal"';
 		}
 		  
 		if($via) {
@@ -117,7 +119,9 @@ class Modl_social_widgets {
 			   	default: 
 			   		$data .= ' data-size="medium"';
 			}
-		} 
+		} else {
+			$data .= ' data-size="medium"';
+		}
 		
 		$data .='>Tweet</a>';
 		
@@ -191,6 +195,8 @@ class Modl_social_widgets {
 			   	default: 
 			   		$data .= ' data-send="false"';
 			}
+		} else {
+			$data .= ' data-send="false"';
 		}
 		
 		if ($layout) {
@@ -207,6 +213,8 @@ class Modl_social_widgets {
 			   	default: 
 			   		$data .= ' data-layout="button_count"';
 			}
+		} else {
+			$data .= ' data-layout="button_count"';
 		}
 		
 		if ($width) {
@@ -226,6 +234,8 @@ class Modl_social_widgets {
 			   	default: 
 			   		$data .= ' data-show-faces="false"';
 			}
+		} else {
+			$data .= ' data-show-faces="false"';
 		}
 		
 		if ($verb == 'recommend') {
@@ -373,8 +383,10 @@ class Modl_social_widgets {
 			        $data .= ' data-size="tall"';
 			        break;
 			    default:
-			    	$data .= ' data-size="medium"';	    	
+			    	$data .= ' data-size="medium"';
 			}
+		} else {
+			$data .= ' data-size="medium"';
 		}
 		
 		if($annotation) {
