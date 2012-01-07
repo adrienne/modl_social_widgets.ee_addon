@@ -114,7 +114,7 @@ Will add the JS for asynchronous loading of +1 buttons on page.  Should be place
 	
 Optional Parameters:
 
-_No optional parameters supported at this time. Languages and various load/call types may be needed in future. Consult docs above to explore options.
+_No optional parameters supported at this time. Languages and various load/call types may be needed in future. Consult docs above to explore options._
 
 h3. Google +1 Button
 
