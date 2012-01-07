@@ -5,16 +5,16 @@
  * REQUIRES ExpressionEngine 2+
  * 
  * @package     Modl_social_widgets
- * @version     0.1.0
+ * @version     1.0.1
  * @author      Minds On Design Lab Inc http://mod-lab.com
  * @copyright   Copyright (c) 2011 Minds On Design Lab
- * @License: 	http://opensource.org/licenses/MIT
+ * @License: 	Licensed under the MIT license - Please refer to LICENSE
  * 
  */
 
 $plugin_info = array(
   'pi_name' => 'MODL Social Widgets',
-  'pi_version' => '0.1.0',
+  'pi_version' => '1.0.1',
   'pi_author' => 'Minds On Design Lab',
   'pi_author_url' => 'http://mod-lab.com',
   'pi_description' => 'A collection of functions to display social widgets',
@@ -35,6 +35,8 @@ class Modl_social_widgets {
      
      public function tweet_js() 
      {
+     	// Build code
+     	
      	$data = '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
 		return $data;
      }
@@ -47,6 +49,9 @@ class Modl_social_widgets {
 	
 	public function tweet_share()
 	{
+		
+		// Parameters
+		
 		$url = $this->EE->TMPL->fetch_param('url');
 		$text = $this->EE->TMPL->fetch_param('text');
 		$count = $this->EE->TMPL->fetch_param('count');
@@ -54,6 +59,9 @@ class Modl_social_widgets {
 		$lang = $this->EE->TMPL->fetch_param('lang');
 		$recommend = $this->EE->TMPL->fetch_param('recommend');
 		$hashtag = $this->EE->TMPL->fetch_param('hashtag');
+		$size = $this->EE->TMPL->fetch_param('size');
+		
+		// Build Code
 		
 		$data = '<a href="https://twitter.com/share" class="twitter-share-button"';
 		if($url) { 
@@ -63,22 +71,56 @@ class Modl_social_widgets {
 			$data .= ' data-text="'.$text.'"';
 		}
 		if($count) {
-			$data .= ' data-count="'.$count.'"';
-		}	  
+			switch ($count) {
+			    case "none":
+			        $data .= ' data-count="none"';
+			        break;
+			    case "vertical":
+			        $data .= ' data-count="vertical"';
+			        break;
+			    case "horizontal":
+			        $data .= ' data-count="horizontal"';
+			        break;
+			    default:
+			    	$data .= ' data-count="horizontal"';
+			}
+		} else {
+			$data .= ' data-count="horizontal"';
+		}
+		  
 		if($via) {
 			$data .= ' data-via="'.$via.'"';
 		}
+		
 		if($lang) {
 			$data .= ' data-lang="'.$lang.'"';
 		} else {
 			$data .= ' data-lang="en"';
 		}
+		
 		if($recommend) {
 			$data .= ' data-related="'.$recommend.'"';
 		}
+		
 		if($hashtag) {
 			$data .= ' data-hashtags="'.$hashtag.'"';
-		} 
+		}
+		
+		if($size) {
+			switch ($size) {
+			    case "medium":
+			        $data .= ' data-size="medium"';
+			        break;
+			    case "large":
+			        $data .= ' data-size="large"';
+			        break;
+			   	default: 
+			   		$data .= ' data-size="medium"';
+			}
+		} else {
+			$data .= ' data-size="medium"';
+		}
+		
 		$data .='>Tweet</a>';
 		
 		return $data;
@@ -91,9 +133,14 @@ class Modl_social_widgets {
 	
 	// Javascript SDK to be added after body tag on pages where you want to add an HTML5 Like
 	
-	public function fb_js_sdk()
+	public function fb_js()
 	{
+		
+		// Parameters
+		
 		$appid = $this->EE->TMPL->fetch_param('appid');
+		
+		// Build code
 		
 		$data = '
 			<div id="fb-root"></div>
@@ -116,7 +163,114 @@ class Modl_social_widgets {
 	
 	public function fb_like_html5()
 	{
-		$data = '<div class="fb-like" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false" data-font="arial"></div>';
+		// Parameters
+		
+		$url = $this->EE->TMPL->fetch_param('url');
+		$send = $this->EE->TMPL->fetch_param('send');
+		$layout = $this->EE->TMPL->fetch_param('layout');
+		$width = $this->EE->TMPL->fetch_param('width');
+		$faces = $this->EE->TMPL->fetch_param('faces');
+		$verb = $this->EE->TMPL->fetch_param('verb');
+		$color = $this->EE->TMPL->fetch_param('color');
+		$font = $this->EE->TMPL->fetch_param('font');
+		
+		// Build Code
+		
+		$data = '<div class="fb-like"';
+		
+		if ($url) {
+			$data.= ' data-href="'.$url.'"';
+		}
+		
+		if ($send) {
+			switch ($send) {
+			    case "true":
+			        $data .= ' data-send="true"';
+			        break;
+			    case "false":
+			        $data .= ' data-send="false"';
+			        break;
+			   	default: 
+			   		$data .= ' data-send="false"';
+			}
+		} else {
+			$data .= ' data-send="false"';
+		}
+		
+		if ($layout) {
+			switch ($layout) {
+			    case "standard":
+			        $data .= ' data-layout="standard"';
+			        break;
+			    case "button_count":
+			        $data .= ' data-layout="button_count"';
+			        break;
+			    case "box_count":
+			        $data .= ' data-layout="box_count"';
+			        break;
+			   	default: 
+			   		$data .= ' data-layout="button_count"';
+			}
+		} else {
+			$data .= ' data-layout="button_count"';
+		}
+		
+		if ($width) {
+			$data .= ' data-width="'.$width.'"';
+		} else {
+			$data .= ' data-width="90"';
+		}
+		
+		if ($faces) {
+			switch ($faces) {
+			    case "true":
+			        $data .= ' data-show-faces="true"';
+			        break;
+			    case "false":
+			        $data .= ' data-show-faces="false"';
+			        break;
+			   	default: 
+			   		$data .= ' data-show-faces="false"';
+			}
+		} else {
+			$data .= ' data-show-faces="false"';
+		}
+		
+		if ($verb == 'recommend') {
+			$data .= ' data-action="recommend"';
+		}
+		
+		if ($color == 'dark') {
+			$data .= ' data-colorscheme="dark"';
+		}
+		
+		if ($font) {
+			switch ($font) {
+			    case "arial":
+			        $data .= ' data-font="arial"';
+			        break;
+			    case "lucida grande":
+			        $data .= ' data-font="lucida grande"';
+			        break;
+			    case "segoe ui":
+			        $data .= ' data-font="segoe ui"';
+			        break;
+			    case "tahoma":
+			        $data .= ' data-font="tahoma"';
+			        break;
+			    case "trebuchet ms":
+			        $data .= ' data-font="trebuchet ms"';
+			        break;
+				case "verdana":
+				    $data .= ' data-font="verdana"';
+				    break;
+			    default:
+			    	$data .= ' data-font="arial"';
+			}
+		} else {
+			$data .= ' data-font="arial"';
+		}
+		$data .= '></div>';
 		return $data;
 	}
 	
@@ -124,15 +278,42 @@ class Modl_social_widgets {
      * LinkedIn Share
      *
      */
+	
+	// LinkedIn Required JS Code.
+	
+	public function li_js()
+	{
+		$data = '<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>';	
+		return $data;
+	}
+   
+   
+   	// LinkedIN Share button
      
 	public function li_share()
 	{
+		// Parameters
+		
+		$url = $this->EE->TMPL->fetch_param('url');
 		$counter = $this->EE->TMPL->fetch_param('counter');
-		$data = '<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>';	
-		$data .='<script type="IN/Share"';
+		
+		// Build Code
+		
+		$data ='<script type="IN/Share"';
+		
+		if ($url) {
+			$data .= ' data-url="'.$url.'"';
+		}
 		
 		if($counter) {
-			$data .= ' data-counter="'.$counter.'"';
+			switch ($counter) {
+			    case "top":
+			        $data .= ' data-counter="top"';
+			        break;
+			    case "right":
+			        $data .= ' data-counter="right"';
+			        break;
+			}
 		}
 		$data .='></script>';
 		return $data;
@@ -143,7 +324,7 @@ class Modl_social_widgets {
      *
      */
 	
-	public function google_plusone_script() 
+	public function google_plusone_js() 
 	{
 		$data = '<script type="text/javascript">
       window.___gcfg = {
@@ -165,25 +346,77 @@ class Modl_social_widgets {
      *
      */
 	
-	public function google_plusone_button() 
+	public function google_plusone_share() 
 	{
 		
+		// Parameters
+		
+		$url = $this->EE->TMPL->fetch_param('url');
 		$size = $this->EE->TMPL->fetch_param('size');
 		$annotation = $this->EE->TMPL->fetch_param('annotation');
 		$align = $this->EE->TMPL->fetch_param('align');
-			
+		$width = $this->EE->TMPL->fetch_param('width');
+		
+		// Build Code
+		
 		$data = '<div class="g-plusone"';
 		
+		if($url) {
+			$data .= ' data-href="'.$url.'"';
+		}
+		
 		if($size) {
-			$data .= ' data-size="'.$size.'"';
+			switch ($size) {
+			    case "small":
+			        $data .= ' data-size="small"';
+			        break;
+			    case "medium":
+			        $data .= ' data-size="medium"';
+			        break;
+			    case "standard":
+			        $data .= ' data-size="standard"';
+			        break;
+			    case "tall":
+			        $data .= ' data-size="tall"';
+			        break;
+			    default:
+			    	$data .= ' data-size="medium"';
+			}
+		} else {
+			$data .= ' data-size="medium"';
 		}
 		
 		if($annotation) {
-			$data .= ' data-annotation="'.$annotation.'"';
+			switch ($annotation) {
+			    case "none":
+			        $data .= ' data-annotation="none"';
+			        break;
+			    case "bubble":
+			        $data .= ' data-annotation="bubble"';
+			        break;
+			    case "inline":
+			        $data .= ' data-annotation="inline"';
+			        break;
+			    default:
+			    	$data .= ' data-annotation="bubble"';			    	
+			}
 		}
 		
 		if($align) {
-			$data .= ' data-align="'.$align.'"';
+			switch ($align) {
+			    case "left":
+			        $data .= ' data-align="left"';
+			        break;
+			    case "right":
+			        $data .= ' data-align="right"';
+			        break;
+			    default:
+			    	$data .= ' data-align="left"';			    	
+			}
+		}
+		
+		if($width) {
+			$data .= ' data-width="'.$width.'"';
 		}
 		
 		$data .= '></div>';
