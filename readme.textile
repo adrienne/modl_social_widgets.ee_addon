@@ -129,14 +129,15 @@ Optional Parameters:
 	@{exp:modl_social_widgets:google_plusone_share size="" annotation="" align=""}@
 
 |_. Parameter|_. Options|_. Default|_. Additional Notes|
+|url|||Entering a fully qualified URL, eg. http://google.com. Default will use current URL at time of initiating a +.|
 |size|"small", "medium", "standard", "tall"|medium|The button size to render.|
 |annotation|"none", "bubble", "inline"|bubble|The annotation to display next to the button.|
 |align|"left", "right"|left|Sets the alignment of the button assets within its frame.|
 |width|||Width in pixels of the annotation area if you specify to annotation "inline". There is a minimum of 120 and default is 450 if not specified both controlled by Google. For details please refer to the official +1 documentation.|
 
-h1. Change Log
+h2. Change Log
 
-h2. 1.0.1
+h3. 1.0.1
 
 * Revised parameters where there are specific values that are accepted to use switches
 * Revised method naming conventions
@@ -155,6 +156,6 @@ h2. 1.0.1
 ** Changed size default to medium for +1 share
 ** Added width parameter for inline annotations for +1 share
 
-h2. 1.0.0
+h3. 1.0.0
 
 * First pass
