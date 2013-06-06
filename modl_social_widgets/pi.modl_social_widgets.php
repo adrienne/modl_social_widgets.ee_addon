@@ -29,7 +29,7 @@ class Modl_social_widgets {
 	}
 	
 	/**
-     * Twitter JS
+     * Twitter JS. Must place before twitter button for successful tracking, ie. right after opening <body>
      *
      */
      
@@ -37,15 +37,31 @@ class Modl_social_widgets {
      {
      	// Build code
      	
-     	$data = '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
-		return $data;
+     	// Load the widgets.js file asynchronously for events support. 
+     	
+     	// Can we replace old build code with new async code?
+
+     	$data = '<script>
+		    window.twttr = (function (d,s,id) {
+		      var t, js, fjs = d.getElementsByTagName(s)[0];
+		      if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+		      js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+		      return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+		    }(document, "script", "twitter-wjs"));
+			</script>';
+			return $data;
      }
      
 	
 	/**
-     * Twitter Tweet Button (Javascript Version)
+     * Twitter Tweet Button (Javascript Version) with optional Google Analytics tracking
      *
      */
+
+  // Added Twitter callbacks to Google Analytics
+  // Wait for asynchronous resources to load, then bind custom callbacks to events
+		// Track tweets
+		// Track clicks
 	
 	public function tweet_share()
 	{
@@ -121,10 +137,38 @@ class Modl_social_widgets {
 			$data .= ' data-size="medium"';
 		}
 		
-		$data .='>Tweet</a>';
-		
+		$data .='>Tweet</a>
+
+		//////////////////////////////////////////////////
+			MAKE THIS PART CONDITIONAL IF GA = YES
+		/////////////////////////////////////////////////
+
+		<script>
+    	twttr.ready(function (twttr) {
+        
+        twttr.events.bind(\'tweet\', function(event) { 
+          if (event) {
+            _gaq.push([\'_trackSocial\', \'Twitter\', \'Tweet\'';
+						if($url) { 
+							$data .= ',\''.$url.'\'';
+							}
+						$data .=']);   
+				  }
+        });
+
+        twttr.events.bind(\'click\', function(event) { 
+          if (event) {
+            // Capture the click region
+            var region = "Twitter "+event.region+" clicked";
+            _gaq.push([\'_trackSocial\', \'Twitter\', \'Click\', region]);  
+          }
+        });  
+
+      });
+		</script>';
 		return $data;
 	}
+
 	
 	/**
      * Facebook HTML5 Button
