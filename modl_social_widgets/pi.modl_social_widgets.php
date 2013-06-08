@@ -58,7 +58,8 @@ class Modl_social_widgets {
      *
      */
 
-  // Added Twitter callbacks to Google Analytics
+	// New parameter added: track = "yes" sets tracking on, track = "no" or undefined or ommitted sets tracking off.
+  // Twitter callbacks to Google Analytics added
   // Wait for asynchronous resources to load, then bind custom callbacks to events
 		// Track tweets
 		// Track clicks
@@ -68,6 +69,7 @@ class Modl_social_widgets {
 		
 		// Parameters
 		
+		$track = $this->EE->TMPL->fetch_param('track');
 		$url = $this->EE->TMPL->fetch_param('url');
 		$text = $this->EE->TMPL->fetch_param('text');
 		$count = $this->EE->TMPL->fetch_param('count');
@@ -137,35 +139,39 @@ class Modl_social_widgets {
 			$data .= ' data-size="medium"';
 		}
 		
-		$data .='>Tweet</a>
+		$data .='>Tweet</a>';
 
-		//////////////////////////////////////////////////
-			MAKE THIS PART CONDITIONAL IF GA = YES
-		/////////////////////////////////////////////////
+		if($track) {
+			switch ($track) {
+			    case "yes":
+			        $data .= '
+								<script>
+						    	twttr.ready(function (twttr) {
+						        
+						        twttr.events.bind(\'tweet\', function(event) { 
+						          if (event) {
+						            _gaq.push([\'_trackSocial\', \'Twitter\', \'Tweet\'';
+												if($url) { 
+													$data .= ',\''.$url.'\'';
+													}
+												$data .=']);   
+										  }
+						        });
 
-		<script>
-    	twttr.ready(function (twttr) {
-        
-        twttr.events.bind(\'tweet\', function(event) { 
-          if (event) {
-            _gaq.push([\'_trackSocial\', \'Twitter\', \'Tweet\'';
-						if($url) { 
-							$data .= ',\''.$url.'\'';
-							}
-						$data .=']);   
-				  }
-        });
+						        twttr.events.bind(\'click\', function(event) { 
+						          if (event) {
+						            var region = "Twitter "+event.region+" clicked";
+						            _gaq.push([\'_trackSocial\', \'Twitter\', \'Click\', region]);  
+						          }
+						        });  
 
-        twttr.events.bind(\'click\', function(event) { 
-          if (event) {
-            // Capture the click region
-            var region = "Twitter "+event.region+" clicked";
-            _gaq.push([\'_trackSocial\', \'Twitter\', \'Click\', region]);  
-          }
-        });  
-
-      });
-		</script>';
+						      });
+								</script>';
+			        break;
+			    default:
+			    	$data .= '';
+			}		
+		}		
 		return $data;
 	}
 
