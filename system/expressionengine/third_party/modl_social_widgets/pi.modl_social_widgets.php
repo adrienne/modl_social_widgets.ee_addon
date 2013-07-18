@@ -5,19 +5,19 @@
  * REQUIRES ExpressionEngine 2+
  * 
  * @package     Modl_social_widgets
- * @version     1.0.1
+ * @version     1.1.0
  * @author      Minds On Design Lab Inc http://mod-lab.com
- * @copyright   Copyright (c) 2011 Minds On Design Lab Inc.
+ * @copyright   Copyright (c) 2011 - 2013 Minds On Design Lab Inc.
  * @License: 	Licensed under the MIT license - Please refer to LICENSE
  * 
  */
 
 $plugin_info = array(
   'pi_name' => 'MODL Social Widgets',
-  'pi_version' => '1.0.1',
+  'pi_version' => '1.1.0',
   'pi_author' => 'Minds On Design Lab Inc.',
   'pi_author_url' => 'http://mod-lab.com',
-  'pi_description' => 'A collection of functions to display social widgets',
+  'pi_description' => 'A collection of functions to display social widgets. Includes Twitter, Facebook, LinkedIn, and Google + and the ability to enable social widgets tracking for Google Analytics for Twitter and Facebook.',
   'pi_usage' => Modl_social_widgets::usage()
   );  
   
@@ -29,47 +29,69 @@ class Modl_social_widgets {
 	}
 	
 	/**
+	 * Google Analytics Social Tracking - loads JS file with code for widget tracking.
+	 * Should be added to head.
+	 */
+
+	public function analytics_social_tracking_js() {
+		$data = '<script src="'.URL_THIRD_THEMES.'modl_social_widgets/js/ga_social_tracking.js"></script>';
+		return $data;
+	}
+
+	/**
      * Twitter JS. Must place before twitter button for successful tracking, ie. right after opening <body>
-     *
+     * @param string analytics Accepts yes to inlcude GA tracking snippet 
+     * @return string JS snippet to load Twitter widget_js
      */
-     
+	
      public function tweet_js() 
      {
-     	// Build code
+     	// Parameters
      	
-     	// Load the widgets.js file asynchronously for events support. 
-     	
-     	// Can we replace old build code with new async code?
+     	$analytics = $this->EE->TMPL->fetch_param('analytics');
 
+     	// Build Code
+     	
      	$data = '<script>
 		    window.twttr = (function (d,s,id) {
 		      var t, js, fjs = d.getElementsByTagName(s)[0];
 		      if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
 		      js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
 		      return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
-		    }(document, "script", "twitter-wjs"));
-			</script>';
-			return $data;
+		    }(document, "script", "twitter-wjs"));';
+		if ($analytics == "yes") {
+			$data .= '
+		    // Wait for the asynchronous resources to load
+		    twttr.ready(function(twttr) {
+		        _ga.trackTwitter(); //Google Analytics tracking
+		    });';
+
+		}
+		$data .='</script>';
+		
+		return $data;
      }
      
 	
 	/**
      * Twitter Tweet Button (Javascript Version) with optional Google Analytics tracking
-     *
+     * @param string url Fully qualified URL you would like to track
+     * @param string text Text to be included in default tweet
+     * @param string count Treatment of display of tweet count, 3 cases 'done', 'vertical', 'horizontal'
+     * @param string via Twitter handle for via
+     * @param string lang Language code for widget, default 'en'
+     * @param string recommend Twitter handle for recommend
+     * @param string hashtag Twitter hashtag
+     * @param string size Widget size, 2 cases 'medium' and 'large'
      */
 
-	// New parameter added: track = "yes" sets tracking on, track = "no" or undefined or ommitted sets tracking off.
-  // Twitter callbacks to Google Analytics added
-  // Wait for asynchronous resources to load, then bind custom callbacks to events
-		// Track tweets
-		// Track clicks
+	
 	
 	public function tweet_share()
 	{
 		
 		// Parameters
-		
-		$track = $this->EE->TMPL->fetch_param('track');
+
 		$url = $this->EE->TMPL->fetch_param('url');
 		$text = $this->EE->TMPL->fetch_param('text');
 		$count = $this->EE->TMPL->fetch_param('count');
@@ -141,47 +163,15 @@ class Modl_social_widgets {
 		
 		$data .='>Tweet</a>';
 
-		if($track) {
-			switch ($track) {
-			    case "yes":
-			        $data .= '
-								<script>
-						    	twttr.ready(function (twttr) {
-						        
-						        twttr.events.bind(\'tweet\', function(event) { 
-						          if (event) {
-						            _gaq.push([\'_trackSocial\', \'Twitter\', \'Tweet\'';
-												if($url) { 
-													$data .= ',\''.$url.'\'';
-													}
-												$data .=']);   
-										  }
-						        });
-
-						        twttr.events.bind(\'click\', function(event) { 
-						          if (event) {
-						            var region = "Twitter "+event.region+" clicked";
-						            _gaq.push([\'_trackSocial\', \'Twitter\', \'Click\', region]);  
-						          }
-						        });  
-
-						      });
-								</script>';
-			        break;
-			    default:
-			    	$data .= '';
-			}		
-		}		
 		return $data;
 	}
 
 	
 	/**
-     * Facebook HTML5 Button
-     *
+     * Facebook Javascript SDK to be added after body tag on pages where you want to add an HTML5 Like
+     * @param int appid Facebook application unique id
+     * @param string analytics Accepts yes to inlcude GA tracking snippet
      */
-	
-	// Javascript SDK to be added after body tag on pages where you want to add an HTML5 Like
 	
 	public function fb_js()
 	{
@@ -189,27 +179,60 @@ class Modl_social_widgets {
 		// Parameters
 		
 		$appid = $this->EE->TMPL->fetch_param('appid');
+		$analytics = $this->EE->TMPL->fetch_param('analytics');
 		
 		// Build code
-		
+
 		$data = '
 			<div id="fb-root"></div>
-			<script>(function(d, s, id) {
-			  var js, fjs = d.getElementsByTagName(s)[0];
-			  if (d.getElementById(id)) return;
-			  js = d.createElement(s); js.id = id;
-			  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appid';
-		if($appid) {
-			$data .= '='.$appid;
-		}
-		$data .= '";
-			  fjs.parentNode.insertBefore(js, fjs);
-			}(document, "script", "facebook-jssdk"));</script>
+			<script>
+			window.fbAsyncInit = function() {
+			    // init the FB JS SDK
+			    FB.init({
+			      appId      : \''.$appid.'\',// App ID from the app dashboard
+			      //channelUrl : \'//WWW.YOUR_DOMAIN.COM/channel.html\', // Channel file for x-domain comms
+			      status     : true,                                 // Check Facebook Login status
+			      xfbml      : true                                  // Look for social plugins on the page
+			    });
+				
+			    // Additional initialization code such as adding Event Listeners goes here';
+		
+		// Check for analytics
+			
+		if($analytics == 'yes') {
+			$data .= '
+				_ga.trackFacebook(); //Google Analytics tracking
 			';
+		};
+
+		$data .= '
+
+			  };
+
+			  // Load the SDK asynchronously
+			  (function(d, s, id){
+			     var js, fjs = d.getElementsByTagName(s)[0];
+			     if (d.getElementById(id)) {return;}
+			     js = d.createElement(s); js.id = id;
+			     js.src = "//connect.facebook.net/en_US/all.js";
+			     fjs.parentNode.insertBefore(js, fjs);
+			   }(document, \'script\', \'facebook-jssdk\'));
+			</script>
+		';
 		return $data;
 	}
 	
-	// Specific instance of like button to be added where needed
+	/**
+	 * Facebook HTML 5 Like button
+	 * @param string url Fully qualified URL to be liked
+	 * @param string send Enable the send (messaging) capability, 2 cases 'true', 'false'
+	 * @param string layout Layout of widget, 3 cases 'standard', 'button_count', 'box_count'
+	 * @param string width Width of widget, min is 90
+	 * @param string faces Show faces, 2 cases 'true', 'false'
+	 * @param string verb Change from like to 'recommend', one case 'recommend', default is 'like'
+	 * @param string color Opt for dark or light, one case 'dark', defaul is 'light'
+	 * @param string font Set font type, 6 cases 'arial', 'lucida grande', 'segoe ui', 'tahoma', 'trebuchet ms', 'verdana'
+	 */
 	
 	public function fb_like_html5()
 	{
@@ -325,20 +348,24 @@ class Modl_social_widgets {
 	}
 	
 	/**
-     * LinkedIn Share
+     * LinkedIn Required JS Code
      *
      */
 	
-	// LinkedIn Required JS Code.
-	
 	public function li_js()
 	{
-		$data = '<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>';	
+		// Build Code
+		$data = '<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>';
+
 		return $data;
 	}
    
-   
-   	// LinkedIN Share button
+   /**
+    * LinkedIN Share button
+    * @param string url Fully qualified URL to be shared
+    * @param string counter Display of share counter, 2 cases 'top', 'right'
+    */
+
      
 	public function li_share()
 	{
@@ -376,24 +403,29 @@ class Modl_social_widgets {
 	
 	public function google_plusone_js() 
 	{
-		$data = '<script type="text/javascript">
-      window.___gcfg = {
-        lang: \'en-US\'
-      };
+		$data = '
+			<script type="text/javascript">
+      			window.___gcfg = {
+        			lang: \'en-US\'
+      			};
 
-      (function() {
-        var po = document.createElement(\'script\'); po.type = \'text/javascript\'; po.async = true;
-        po.src = \'https://apis.google.com/js/plusone.js\';
-        var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(po, s);
-      })();
-    </script>';
+      			(function() {
+        			var po = document.createElement(\'script\'); po.type = \'text/javascript\'; po.async = true;
+        			po.src = \'https://apis.google.com/js/plusone.js\';
+        			var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(po, s);
+      			})();
+    		</script>';
     
     	return $data;
 	}
 	
 	/**
      * Google +1 Button
-     *
+     * @param string url Fully qualified URL to be shared
+     * @param string size Size of button, four cases 'small', 'medium', 'standard', 'tall', default is 'medium'
+     * @param string annotation Count/layout treatment, thre cases 'none', 'bubble', 'inline', default is 'bubble'
+     * @param string align Sets the alignment of the button assets within its frame, two cases 'left', 'right', default is 'left'
+     * @param int width Width of widget, refer to google docs for options
      */
 	
 	public function google_plusone_share() 

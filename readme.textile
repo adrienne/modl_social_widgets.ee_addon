@@ -126,7 +126,11 @@ Will add a Google +1 button wherever this tag is placed using defaults as detail
 
 Optional Parameters:
 
-	@{exp:modl_social_widgets:google_plusone_share size="" annotation="" align=""}@
+	@{exp:modl_social_widgets:google_plusone_share 
+		size="" 
+		annotation="" 
+		align=""
+	}@
 
 |_. Parameter|_. Options|_. Default|_. Additional Notes|
 |url|||Entering a fully qualified URL, eg. http://google.com. Default will use current URL at time of initiating a +.|
