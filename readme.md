@@ -139,7 +139,7 @@ Will add a simple FB HTML5 Like button wherever this tag is placed using default
 
 ### Linkedin JS
 
-Will add the Linkedin JS to the page. Required for Tweet Button Use. Likely added to bottom of page/footer before @</body>@.
+Will add the Linkedin JS to the page. Required for Tweet Button Use. Likely added to bottom of page/footer before `</body>`.
 
 	{exp:modl_social_widgets:li_js}
 
