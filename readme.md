@@ -133,19 +133,19 @@ Will add a simple FB HTML5 Like button wherever this tag is placed using default
 | color | "dark" | | No parameter or any other value defaults to light version. |
 | font | "arial", "lucida grande", "segoe ui", "tahoma", "trebuchet ms", "verdana" | arial | |
 
-## Linkedin
+## LinkedIn
 
 * [Docs](https://developer.linkedin.com/plugins/share-button":https://developer.linkedin.com/plugins/share-button)
 
-### Linkedin JS
+### LinkedIn JS
 
-Will add the Linkedin JS to the page. Required for Tweet Button Use. Likely added to bottom of page/footer before `</body>`.
+Will add the LinkedIn JS to the page. Required for Tweet Button Use. Likely added to bottom of page/footer before `</body>`.
 
 	{exp:modl_social_widgets:li_js}
 
-### Linkedin Share
+### LinkedIn Share
 
-Will add a Linkedin Share button wherever this tag is placed.
+Will add a LinkedIn Share button wherever this tag is placed.
 
 	{exp:modl_social_widgets:li_share}
 
