@@ -202,7 +202,7 @@ Will add a Google +1 button wherever this tag is placed using defaults as detail
 
 ### 1.1.0
 
-- Google Analytics social widget tracking for Facebook Like and Twitter
+- Google Analytics social widget tracking for Facebook Like and Twitter (using ga.js)
 - Facebook
 	- Track likes, unlikes, send
 - Twitter
