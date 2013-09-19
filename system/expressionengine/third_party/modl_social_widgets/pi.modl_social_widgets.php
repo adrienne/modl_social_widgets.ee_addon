@@ -3,55 +3,82 @@
 /**
  * Minds On Design Lab MODL Social Widgets
  * REQUIRES ExpressionEngine 2+
- * 
+ *
  * @package     Modl_social_widgets
- * @version     1.1.0
+ * @version     1.2.0
  * @author      Minds On Design Lab Inc http://mod-lab.com
  * @copyright   Copyright (c) 2011 - 2013 Minds On Design Lab Inc.
  * @License: 	Licensed under the MIT license - Please refer to LICENSE
- * 
+ *
  */
 
 $plugin_info = array(
   'pi_name' => 'MODL Social Widgets',
-  'pi_version' => '1.1.0',
+  'pi_version' => '1.2.0',
   'pi_author' => 'Minds On Design Lab Inc.',
   'pi_author_url' => 'http://mod-lab.com',
   'pi_description' => 'A collection of functions to display social widgets. Includes Twitter, Facebook, LinkedIn, and Google + and the ability to enable social widgets tracking for Google Analytics for Twitter and Facebook.',
   'pi_usage' => Modl_social_widgets::usage()
-  );  
-  
+  );
+
 class Modl_social_widgets {
-    
+
+    private var $init 	= false;
+    private var $style 	= '';
+
+    private var $doTrackLinkedIn	= false;
+    private var $doTrackGooglePlus	= false;
+
 	public function __construct()
 	{
 		$this->EE =& get_instance();
 	}
-	
+
 	/**
 	 * Google Analytics Social Tracking - loads JS file with code for widget tracking.
 	 * Should be added to head.
 	 */
 
 	public function analytics_social_tracking_js() {
+		if( $this->init ) {
+			show_error('You may use analytics_social_tracking OR universial_social_tracking, not both');
+		}
+		$this->init = true;
+		$this->style = 'gaq';
+
 		$data = '<script src="'.URL_THIRD_THEMES.'modl_social_widgets/js/ga_social_tracking.js"></script>';
 		return $data;
 	}
 
 	/**
+	 * Google Analytics Universial tracking code
+	 * You can only use analytics social tracking or universal tracking, not both
+	 */
+	public function universal_social_tracking_js() {
+		if( $this->init ) {
+			show_error('You may use analytics_social_tracking OR universial_social_tracking, not both');
+		}
+		$this->init = true;
+		$this->type = 'uni';
+
+		$data = '<script src="'.URL_THIRD_THEMES.'modl_social_widgets/js/universal_social_tracking.js"></script>';
+		return $data;
+	}
+
+	/**
      * Twitter JS. Must place before twitter button for successful tracking, ie. right after opening <body>
-     * @param string analytics Accepts yes to inlcude GA tracking snippet 
+     * @param string analytics Accepts yes to inlcude GA tracking snippet
      * @return string JS snippet to load Twitter widget_js
      */
-	
-     public function tweet_js() 
+
+     public function tweet_js()
      {
      	// Parameters
-     	
+
      	$analytics = $this->EE->TMPL->fetch_param('analytics');
 
      	// Build Code
-     	
+
      	$data = '<script>
 		    window.twttr = (function (d,s,id) {
 		      var t, js, fjs = d.getElementsByTagName(s)[0];
@@ -60,19 +87,28 @@ class Modl_social_widgets {
 		      return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
 		    }(document, "script", "twitter-wjs"));';
 		if ($analytics == "yes") {
-			$data .= '
-		    // Wait for the asynchronous resources to load
-		    twttr.ready(function(twttr) {
-		        _ga.trackTwitter(); //Google Analytics tracking
-		    });';
+			if( $this->style == 'gaq' ) {
+				$data .= '
+			    // Wait for the asynchronous resources to load
+			    twttr.ready(function(twttr) {
+			        _ga.trackTwitter(); //Google Analytics tracking
+			    });';
+			} else {
+				$data .= '
+			    // Wait for the asynchronous resources to load
+			    twttr.ready(function(twttr) {
+			        _modl_social.trackTwitter(); //Google Analytics tracking
+			    });';
+
+			}
 
 		}
 		$data .='</script>';
-		
+
 		return $data;
      }
-     
-	
+
+
 	/**
      * Twitter Tweet Button (Javascript Version) with optional Google Analytics tracking
      * @param string url Fully qualified URL you would like to track
@@ -85,11 +121,11 @@ class Modl_social_widgets {
      * @param string size Widget size, 2 cases 'medium' and 'large'
      */
 
-	
-	
+
+
 	public function tweet_share()
 	{
-		
+
 		// Parameters
 
 		$url = $this->EE->TMPL->fetch_param('url');
@@ -100,11 +136,11 @@ class Modl_social_widgets {
 		$recommend = $this->EE->TMPL->fetch_param('recommend');
 		$hashtag = $this->EE->TMPL->fetch_param('hashtag');
 		$size = $this->EE->TMPL->fetch_param('size');
-		
+
 		// Build Code
-		
+
 		$data = '<a href="https://twitter.com/share" class="twitter-share-button"';
-		if($url) { 
+		if($url) {
 			$data .= ' data-url="'.$url.'"';
 			}
 		if($text) {
@@ -127,25 +163,25 @@ class Modl_social_widgets {
 		} else {
 			$data .= ' data-count="horizontal"';
 		}
-		  
+
 		if($via) {
 			$data .= ' data-via="'.$via.'"';
 		}
-		
+
 		if($lang) {
 			$data .= ' data-lang="'.$lang.'"';
 		} else {
 			$data .= ' data-lang="en"';
 		}
-		
+
 		if($recommend) {
 			$data .= ' data-related="'.$recommend.'"';
 		}
-		
+
 		if($hashtag) {
 			$data .= ' data-hashtags="'.$hashtag.'"';
 		}
-		
+
 		if($size) {
 			switch ($size) {
 			    case "medium":
@@ -154,33 +190,33 @@ class Modl_social_widgets {
 			    case "large":
 			        $data .= ' data-size="large"';
 			        break;
-			   	default: 
+			   	default:
 			   		$data .= ' data-size="medium"';
 			}
 		} else {
 			$data .= ' data-size="medium"';
 		}
-		
+
 		$data .='>Tweet</a>';
 
 		return $data;
 	}
 
-	
+
 	/**
      * Facebook Javascript SDK to be added after body tag on pages where you want to add an HTML5 Like
      * @param int appid Facebook application unique id
      * @param string analytics Accepts yes to inlcude GA tracking snippet
      */
-	
+
 	public function fb_js()
 	{
-		
+
 		// Parameters
-		
+
 		$appid = $this->EE->TMPL->fetch_param('appid');
 		$analytics = $this->EE->TMPL->fetch_param('analytics');
-		
+
 		// Build code
 
 		$data = '
@@ -194,15 +230,21 @@ class Modl_social_widgets {
 			      status     : true,                                 // Check Facebook Login status
 			      xfbml      : true                                  // Look for social plugins on the page
 			    });
-				
+
 			    // Additional initialization code such as adding Event Listeners goes here';
-		
+
 		// Check for analytics
-			
+
 		if($analytics == 'yes') {
-			$data .= '
-				_ga.trackFacebook(); //Google Analytics tracking
-			';
+			if( $this->style == 'gaq' ) {
+				$data .= '
+					_ga.trackFacebook(); //Google Analytics tracking
+				';
+			} else {
+				$data .= '
+					_modl_social.trackFacebook(); //Google Analytics tracking
+				';
+			}
 		};
 
 		$data .= '
@@ -221,7 +263,7 @@ class Modl_social_widgets {
 		';
 		return $data;
 	}
-	
+
 	/**
 	 * Facebook HTML 5 Like button
 	 * @param string url Fully qualified URL to be liked
@@ -233,11 +275,11 @@ class Modl_social_widgets {
 	 * @param string color Opt for dark or light, one case 'dark', defaul is 'light'
 	 * @param string font Set font type, 6 cases 'arial', 'lucida grande', 'segoe ui', 'tahoma', 'trebuchet ms', 'verdana'
 	 */
-	
+
 	public function fb_like_html5()
 	{
 		// Parameters
-		
+
 		$url = $this->EE->TMPL->fetch_param('url');
 		$send = $this->EE->TMPL->fetch_param('send');
 		$layout = $this->EE->TMPL->fetch_param('layout');
@@ -246,15 +288,15 @@ class Modl_social_widgets {
 		$verb = $this->EE->TMPL->fetch_param('verb');
 		$color = $this->EE->TMPL->fetch_param('color');
 		$font = $this->EE->TMPL->fetch_param('font');
-		
+
 		// Build Code
-		
+
 		$data = '<div class="fb-like"';
-		
+
 		if ($url) {
 			$data.= ' data-href="'.$url.'"';
 		}
-		
+
 		if ($send) {
 			switch ($send) {
 			    case "true":
@@ -263,13 +305,13 @@ class Modl_social_widgets {
 			    case "false":
 			        $data .= ' data-send="false"';
 			        break;
-			   	default: 
+			   	default:
 			   		$data .= ' data-send="false"';
 			}
 		} else {
 			$data .= ' data-send="false"';
 		}
-		
+
 		if ($layout) {
 			switch ($layout) {
 			    case "standard":
@@ -281,19 +323,19 @@ class Modl_social_widgets {
 			    case "box_count":
 			        $data .= ' data-layout="box_count"';
 			        break;
-			   	default: 
+			   	default:
 			   		$data .= ' data-layout="button_count"';
 			}
 		} else {
 			$data .= ' data-layout="button_count"';
 		}
-		
+
 		if ($width) {
 			$data .= ' data-width="'.$width.'"';
 		} else {
 			$data .= ' data-width="90"';
 		}
-		
+
 		if ($faces) {
 			switch ($faces) {
 			    case "true":
@@ -302,21 +344,21 @@ class Modl_social_widgets {
 			    case "false":
 			        $data .= ' data-show-faces="false"';
 			        break;
-			   	default: 
+			   	default:
 			   		$data .= ' data-show-faces="false"';
 			}
 		} else {
 			$data .= ' data-show-faces="false"';
 		}
-		
+
 		if ($verb == 'recommend') {
 			$data .= ' data-action="recommend"';
 		}
-		
+
 		if ($color == 'dark') {
 			$data .= ' data-colorscheme="dark"';
 		}
-		
+
 		if ($font) {
 			switch ($font) {
 			    case "arial":
@@ -346,42 +388,47 @@ class Modl_social_widgets {
 		$data .= '></div>';
 		return $data;
 	}
-	
+
 	/**
      * LinkedIn Required JS Code
      *
      */
-	
+
 	public function li_js()
 	{
+     	$analytics = $this->EE->TMPL->fetch_param('analytics');
+
+     	// we do this here to maintain tag parity with the Twitter and Facebook tags
+     	$this->doTrackLinkedIn = $analytics;
+
 		// Build Code
 		$data = '<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>';
 
 		return $data;
 	}
-   
+
    /**
     * LinkedIN Share button
     * @param string url Fully qualified URL to be shared
     * @param string counter Display of share counter, 2 cases 'top', 'right'
     */
 
-     
+
 	public function li_share()
 	{
 		// Parameters
-		
+
 		$url = $this->EE->TMPL->fetch_param('url');
 		$counter = $this->EE->TMPL->fetch_param('counter');
-		
+
 		// Build Code
-		
+
 		$data ='<script type="IN/Share"';
-		
+
 		if ($url) {
 			$data .= ' data-url="'.$url.'"';
 		}
-		
+
 		if($counter) {
 			switch ($counter) {
 			    case "top":
@@ -392,17 +439,26 @@ class Modl_social_widgets {
 			        break;
 			}
 		}
+
+		if( $this->doTrackLinkedIn ) {
+			$data .= 'data-onsuccess="_modl_social.trackLinkedin"';
+		}
 		$data .='></script>';
 		return $data;
 	}
-	
+
 	/**
      * Google +1 Button - JS for asynchronous loading. Currently US English.
      *
      */
-	
-	public function google_plusone_js() 
+
+	public function google_plusone_js()
 	{
+     	$analytics = $this->EE->TMPL->fetch_param('analytics');
+
+     	// we do this here to maintain param parity with the Twitter and Facebook tags
+     	$this->doTrackGooglePlus = $analytics;
+
 		$data = '
 			<script type="text/javascript">
       			window.___gcfg = {
@@ -415,10 +471,10 @@ class Modl_social_widgets {
         			var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(po, s);
       			})();
     		</script>';
-    
+
     	return $data;
 	}
-	
+
 	/**
      * Google +1 Button
      * @param string url Fully qualified URL to be shared
@@ -427,26 +483,26 @@ class Modl_social_widgets {
      * @param string align Sets the alignment of the button assets within its frame, two cases 'left', 'right', default is 'left'
      * @param int width Width of widget, refer to google docs for options
      */
-	
-	public function google_plusone_share() 
+
+	public function google_plusone_share()
 	{
-		
+
 		// Parameters
-		
+
 		$url = $this->EE->TMPL->fetch_param('url');
 		$size = $this->EE->TMPL->fetch_param('size');
 		$annotation = $this->EE->TMPL->fetch_param('annotation');
 		$align = $this->EE->TMPL->fetch_param('align');
 		$width = $this->EE->TMPL->fetch_param('width');
-		
+
 		// Build Code
-		
+
 		$data = '<div class="g-plusone"';
-		
+
 		if($url) {
 			$data .= ' data-href="'.$url.'"';
 		}
-		
+
 		if($size) {
 			switch ($size) {
 			    case "small":
@@ -467,7 +523,7 @@ class Modl_social_widgets {
 		} else {
 			$data .= ' data-size="medium"';
 		}
-		
+
 		if($annotation) {
 			switch ($annotation) {
 			    case "none":
@@ -480,10 +536,10 @@ class Modl_social_widgets {
 			        $data .= ' data-annotation="inline"';
 			        break;
 			    default:
-			    	$data .= ' data-annotation="bubble"';			    	
+			    	$data .= ' data-annotation="bubble"';
 			}
 		}
-		
+
 		if($align) {
 			switch ($align) {
 			    case "left":
@@ -493,33 +549,37 @@ class Modl_social_widgets {
 			        $data .= ' data-align="right"';
 			        break;
 			    default:
-			    	$data .= ' data-align="left"';			    	
+			    	$data .= ' data-align="left"';
 			}
 		}
-		
+
 		if($width) {
 			$data .= ' data-width="'.$width.'"';
 		}
-		
+
+		if( $this->doTrackGooglePlus ) {
+			$data .= ' data-callback="_modl_social.trackGooglePlus"';
+		}
+
 		$data .= '></div>';
-		
+
 		return $data;
-	
+
 	}
-	
-	
-		
+
+
+
 	static function usage()
 	{
-		ob_start(); 
+		ob_start();
 		?>
 
 		Please refer to online documentation at https://github.com/Minds-On-Design-Lab/modl_social_widgets.ee-addon
-				
+
 		<?php
 		$buffer = ob_get_contents();
-	
-		ob_end_clean(); 
+
+		ob_end_clean();
 
 		return $buffer;
   	}
