@@ -36,13 +36,14 @@ _modl_social = {
 			gaOpts = arguments[3];
 		}
 
-		ga('send', {
-			'hitType':			'social',
-			'socialNetwork':	network,
-			'socialAction':		action,
-			'socialTarget':		target,
+		ga(
+			'send',
+			'social',
+			network,
+			action,
+			target,
 			gaOpts
-		});
+		);
 	}),
 
 	/**
@@ -56,7 +57,7 @@ _modl_social = {
 			return;
 		}
 
-		var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+		var regex = new RegExp('[\\?&#]' + param + '=([^&#]*)');
 		var params = regex.exec(uri);
 		if( params != null ) {
 			return unescape(params[1]);
