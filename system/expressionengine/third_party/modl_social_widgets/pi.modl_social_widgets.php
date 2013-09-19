@@ -23,11 +23,11 @@ $plugin_info = array(
 
 class Modl_social_widgets {
 
-    private var $init 	= false;
-    private var $style 	= '';
+    private $init 	= false;
+    private $style 	= '';
 
-    private var $doTrackLinkedIn	= false;
-    private var $doTrackGooglePlus	= false;
+    private $doTrackLinkedIn	= false;
+    private $doTrackGooglePlus	= false;
 
 	public function __construct()
 	{
