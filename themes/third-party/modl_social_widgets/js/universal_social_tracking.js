@@ -78,9 +78,9 @@ _modl_social = {
      */
     "trackGooglePlus": (function(data) {
         if( data.state && data.state == 'on' ) {
-            _modl_social.trackSocial('GooglePlus', 'plus', data.id);
+            _modl_social.trackSocial('googlePlus', 'plus', data.id);
         } else {
-            _modl_social.trackSocial('GooglePlus', 'minus', data.id);
+            _modl_social.trackSocial('googlePlus', 'minus', data.id);
         }
     }),
 

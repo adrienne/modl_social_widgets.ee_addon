@@ -459,7 +459,7 @@ class Modl_social_widgets {
         $analytics = $this->EE->TMPL->fetch_param('analytics');
 
         // we do this here to maintain param parity with the Twitter and Facebook tags
-        $this->doTrackGooglePlus = $analytics;
+        // $this->doTrackGooglePlus = $analytics;
 
         $data = '
             <script type="text/javascript">
@@ -559,13 +559,13 @@ class Modl_social_widgets {
             $data .= ' data-width="'.$width.'"';
         }
 
-        if( $this->doTrackGooglePlus ) {
-            if( $this->style == 'gaq' ) {
-                show_error('Google+ interactions can only be tracked with the Universal tracking code');
-                return;
-            }
-            $data .= ' data-callback="_modl_social.trackGooglePlus"';
-        }
+        // if( $this->doTrackGooglePlus ) {
+        //     if( $this->style == 'gaq' ) {
+        //         show_error('Google+ interactions can only be tracked with the Universal tracking code');
+        //         return;
+        //     }
+        //     $data .= ' data-callback="_modl_social.trackGooglePlus"';
+        // }
 
         $data .= '></div>';
 
