@@ -17,7 +17,7 @@ An ExpressionEngine 2.x plugin consisting of an evolving collection of social wi
 
 ## Google Analytics Social Widget Tracking
 
-We currently support both widget_js as well as the new Universal Analytics approach; however, not both at the same time. You will need to decide on which approach to use to employ this add-on. 
+We currently support both ga.js as well as the new analytics.js or Universal Analytics approach; however, not both at the same time. You will need to decide on which approach to use to employ this add-on. 
 
 Google Analytics Tracking is supported for:
 
