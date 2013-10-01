@@ -396,10 +396,13 @@ class Modl_social_widgets {
 
     public function li_js()
     {
-        $analytics = $this->EE->TMPL->fetch_param('analytics');
+        
+        // LinkedIn Analytics tracking not yet enabled
 
-        // we do this here to maintain tag parity with the Twitter and Facebook tags
-        $this->doTrackLinkedIn = $analytics;
+        //$analytics = $this->EE->TMPL->fetch_param('analytics');
+
+        //// we do this here to maintain tag parity with the Twitter and Facebook tags
+        //a$this->doTrackLinkedIn = $analytics;
 
         // Build Code
         $data = '<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>';
@@ -438,13 +441,16 @@ class Modl_social_widgets {
             }
         }
 
-        if( $this->doTrackLinkedIn ) {
-            if( $this->style == 'gaq' ) {
-                show_error('LinkedIn interactions can only be tracked with the Universal tracking code');
-                return;
-            }
-            $data .= 'data-onsuccess="_modl_social.trackLinkedin"';
-        }
+        // LinkedIn Universal Tracking Not Yet Enabled - requires more testing
+
+        //if( $this->doTrackLinkedIn ) {
+        //    if( $this->style == 'gaq' ) {
+        //        show_error('LinkedIn interactions can only be tracked with the Universal tracking code');
+        //        return;
+        //    }
+        //    $data .= 'data-onsuccess="_modl_social.trackLinkedin"';
+        //}
+        
         $data .='></script>';
         return $data;
     }
@@ -456,7 +462,10 @@ class Modl_social_widgets {
 
     public function google_plusone_js()
     {
-        $analytics = $this->EE->TMPL->fetch_param('analytics');
+        
+        // Currently Google Plus is tracked without extra code.
+
+        //$analytics = $this->EE->TMPL->fetch_param('analytics');
 
         // we do this here to maintain param parity with the Twitter and Facebook tags
         // $this->doTrackGooglePlus = $analytics;
@@ -558,6 +567,8 @@ class Modl_social_widgets {
         if($width) {
             $data .= ' data-width="'.$width.'"';
         }
+
+        // Currently Google Plus tracks in analytics without extra code.
 
         // if( $this->doTrackGooglePlus ) {
         //     if( $this->style == 'gaq' ) {
