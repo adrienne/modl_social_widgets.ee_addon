@@ -17,7 +17,7 @@ An ExpressionEngine 2.x plugin consisting of an evolving collection of social wi
 
 ## Google Analytics Social Widget Tracking
 
-We currently support both widget_js as well as the Universal analytics approach; however, not both at the same time. You will need to decide on which. 
+We currently support both widget_js as well as the new Universal Analytics approach; however, not both at the same time. You will need to decide on which approach to use to employ this add-on. 
 
 Google Analytics Tracking is supported for:
 
@@ -215,6 +215,12 @@ Will add a Google +1 button wherever this tag is placed using defaults as detail
 | width | | | Width in pixels of the annotation area if you specify to annotation "inline". There is a minimum of 120 and default is 450 if not specified both controlled by Google. For details please refer to the official +1 documentation. |
 
 ## Change Log
+
+### 1.2.0
+
+- Added support for Google Analytics Universal Analytics approach
+	- Support for Facebook, Twitter
+	- Google Plus currently tracked without additional code
 
 ### 1.1.0
 
