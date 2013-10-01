@@ -391,7 +391,6 @@ class Modl_social_widgets {
 
     /**
      * LinkedIn Required JS Code
-     * @param string analytics Accepts yes to inlcude GA tracking snippet
      */
 
     public function li_js()
@@ -457,7 +456,6 @@ class Modl_social_widgets {
 
     /**
      * Google +1 Button - JS for asynchronous loading. Currently US English.
-     * @param string analytics Accepts yes to inlcude GA tracking snippet
      */
 
     public function google_plusone_js()
