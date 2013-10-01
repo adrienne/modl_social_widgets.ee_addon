@@ -5,7 +5,7 @@
 An ExpressionEngine 2.x plugin consisting of an evolving collection of social widgets to help a website get social. The defaults noted below are not necessarily those promoted by their respective platforms but rather are what we have found to be the most standard basic implementation for the sites we build. This plugin is maintained by Minds On Design Lab driven by internal use and needs.
 
 - *Developed By:* Minds On Design Lab - http://mod-lab.com
-- *Version:* 1.1.0
+- *Version:* 1.2.0
 - *Copyright:* Copyright &copy; 2011 - 2013 Minds On Design Lab
 - *License:* Licensed under the MIT license - Please refer to LICENSE
 
