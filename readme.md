@@ -17,13 +17,29 @@ An ExpressionEngine 2.x plugin consisting of an evolving collection of social wi
 
 ## Google Analytics Social Widget Tracking
 
-We currently support the widget_js approach. Universal analytics something we will consider in future. To enable this feature you need to include a JS library as well as set the `analytics="yes"` parameter in the Twitter JS and Facebook JS SDK tags as detailed below.
+We currently support both widget_js as well as the new Universal Analytics approach; however, not both at the same time. You will need to decide on which approach to use to employ this add-on. 
+
+Google Analytics Tracking is supported for:
+
+- Facebook Like
+- Twitter
+- Google Plus
+
+_There is no support for LinkedIn at this time._
+
+To enable this feature you need to include a JS library as well as set the `analytics="yes"` parameter in the Twitter JS and Facebook JS SDK tags as detailed below.
 
 ### Google Analytics Tracking JS
 
 The following tag is used to set the js filed stored in the `themes/third_party/modl_social_widgets` folder. Should be placed above Twitter JS and Facebook JS SDK tags.
 
+#### ga.js approach (Old)
+
 	{exp:modl_social_widgets:analytics_social_tracking_js}
+
+#### analytics.js approach (New)
+
+	{exp:modl_social_widgets:universal_social_tracking_js}
 
 ## Twitter
 
@@ -199,6 +215,12 @@ Will add a Google +1 button wherever this tag is placed using defaults as detail
 | width | | | Width in pixels of the annotation area if you specify to annotation "inline". There is a minimum of 120 and default is 450 if not specified both controlled by Google. For details please refer to the official +1 documentation. |
 
 ## Change Log
+
+### 1.2.0
+
+- Added support for Google Analytics Universal Analytics approach
+	- Support for Facebook, Twitter
+	- Google Plus currently tracked without additional code
 
 ### 1.1.0
 
