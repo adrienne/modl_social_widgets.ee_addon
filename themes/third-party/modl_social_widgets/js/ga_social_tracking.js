@@ -23,32 +23,6 @@ var _gaq = _gaq || [];
 
 
 /**
- * Tracks social interactions by iterating through each tracker object
- * of the page, and calling the _trackSocial method. This function
- * should be pushed onto the _gaq queue. For details on parameters see
- * http://code.google.com/apis/analytics/docs/gaJS/gaJSApiSocialTracking.html
- * @param {string} network The network on which the action occurs.
- * @param {string} socialAction The type of action that happens.
- * @param {string} opt_target Optional text value that indicates the
- *     subject of the action.
- * @param {string} opt_pagePath Optional page (by path, not full URL)
- *     from which the action occurred.
- * @return a function that iterates over each tracker object
- *    and calls the _trackSocial method.
- * @private
- */
-_ga.getSocialActionTrackers_ = function(
-    network, socialAction, opt_target, opt_pagePath) {
-  return function() {
-    var trackers = _gat._getTrackers();
-    for (var i = 0, tracker; tracker = trackers[i]; i++) {
-      tracker._trackSocial(network, socialAction, opt_target, opt_pagePath);
-    }
-  };
-};
-
-
-/**
  * Tracks Facebook likes, unlikes and sends by suscribing to the Facebook
  * JSAPI event model. Note: This will not track facebook buttons using the
  * iframe method.
@@ -59,16 +33,16 @@ _ga.trackFacebook = function(opt_pagePath) {
   try {
     if (FB && FB.Event && FB.Event.subscribe) {
       FB.Event.subscribe('edge.create', function(opt_target) {
-        _gaq.push(_ga.getSocialActionTrackers_('facebook', 'like',
-            opt_target, opt_pagePath));
+        _gaq.push(['_trackSocial', 'facebook', 'like',
+                    opt_target, opt_pagePath]);
       });
       FB.Event.subscribe('edge.remove', function(opt_target) {
-        _gaq.push(_ga.getSocialActionTrackers_('facebook', 'unlike',
-            opt_target, opt_pagePath));
+        _gaq.push(['_trackSocial','facebook', 'unlike',
+                    opt_target, opt_pagePath]);
       });
       FB.Event.subscribe('message.send', function(opt_target) {
-        _gaq.push(_ga.getSocialActionTrackers_('facebook', 'send',
-            opt_target, opt_pagePath));
+        _gaq.push(['_trackSocial','facebook', 'send',
+                    opt_target, opt_pagePath]);
       });
     }
   } catch (e) {}
@@ -96,8 +70,8 @@ _ga.trackTwitterHandler_ = function(intent_event, opt_pagePath) {
     }
     var socialAction = intent_event.type + ((intent_event.type == 'click') ?
         '-' + intent_event.region : ''); //append the type of click to action
-    _gaq.push(_ga.getSocialActionTrackers_('twitter', socialAction, opt_target,
-        opt_pagePath));
+    _gaq.push(['_trackSocial','twitter', socialAction, opt_target,
+            opt_pagePath]);
   }
 };
 
