@@ -14,7 +14,7 @@
 
 $plugin_info = array(
   'pi_name' => 'MODL Social Widgets',
-  'pi_version' => '1.2.0',
+  'pi_version' => '1.2.1',
   'pi_author' => 'Minds On Design Lab Inc.',
   'pi_author_url' => 'http://mod-lab.com',
   'pi_description' => 'A collection of functions to display social widgets. Includes Twitter, Facebook, LinkedIn, and Google + and the ability to enable social widgets tracking for Google Analytics for Twitter and Facebook.',

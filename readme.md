@@ -216,6 +216,10 @@ Will add a Google +1 button wherever this tag is placed using defaults as detail
 
 ## Change Log
 
+### 1.2.1
+
+- Fix for ga.js to replace the getTrackers method with _trackSocial method
+
 ### 1.2.0
 
 - Added support for Google Analytics Universal Analytics approach
